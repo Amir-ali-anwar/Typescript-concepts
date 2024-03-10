@@ -54,4 +54,29 @@ const processData = (input: string | number, config: { reverse: boolean } = { re
 
 }
 console.log(processData(10)); 
-console.log(processData('Amir Ali Anwar')); 
+// console.log(processData('Amir Ali Anwar')); 
+
+
+//Type Predicate in TypeScript
+
+// In Typescript, a "Type predicate" is a concept used to define a custom type guard function. Type Guards are function that return a boolean and are used to 
+// narrow down the type of a variable within the conditional block.
+
+const isString = (value: string): value is string => {
+  return typeof value === 'string';
+}
+
+const toCheckIsString = (value: string) => {
+  let isValidString = ''; // Initialize as an empty string
+  if (isString(value)) { // Use type predicate isString to check if the value is a string
+    isValidString += 'Entered Value is String';
+  } else {
+    isValidString += 'Entered Value is not String';
+  }
+  return isValidString;
+}
+
+console.log(toCheckIsString('amir ali anwar'));
+console.log(toCheckIsString(123));
+
+ // Output: 'Entered Value is String'
