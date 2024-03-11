@@ -116,3 +116,16 @@ const myBike: Bike = { type: 'bike', brand: 'Honda', model: 'CBR', maxSpeed: 180
 
 console.log(calculateMaxSpeed(myCar)); // Output: 200
 console.log(calculateMaxSpeed(myBike)); // Output: 144 (180 * 0.8)
+
+
+// Mapped Types in typescript
+
+// Mapped types in TypeScript allow you to create new types by transforming properties of an existing type.
+
+//readonly 
+
+interface Person{
+  name: string;
+  age: number;
+}
+type ReadonlyOnlyPerson= Readonly<Person>
