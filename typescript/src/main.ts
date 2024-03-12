@@ -111,7 +111,7 @@ const calculateMaxSpeed = (vehicle: Vehicle): number => {
     return vehicle.maxSpeed * 0.8
   }
 }
-const myCar:Car= {type: 'car', make: 'Toyota', model: 'Camry', maxSpeed: 200}
+const myCar: Car = { type: 'car', make: 'Toyota', model: 'Camry', maxSpeed: 200 }
 const myBike: Bike = { type: 'bike', brand: 'Honda', model: 'CBR', maxSpeed: 180 };
 
 console.log(calculateMaxSpeed(myCar)); // Output: 200
@@ -124,8 +124,38 @@ console.log(calculateMaxSpeed(myBike)); // Output: 144 (180 * 0.8)
 
 //readonly 
 
-interface Person{
+interface Person {
   name: string;
   age: number;
 }
-type ReadonlyOnlyPerson= Readonly<Person>
+type ReadonlyOnlyPerson = Readonly<Person>
+
+//Conditional types
+
+//Conditional types in TypeScript allow you to create types that depend on other types.
+//They are particularly useful when you want to conditionally select one of two types based on a type constraint. 
+//Conditional types use the extends keyword to define constraints and employ the ternary conditional operator (? :) to select types based on these constraints.
+
+type NonNullAble<T> = T extends null | undefined ? never : T
+
+// Mapping Union Types:
+
+// Example #1
+type StringOrNumber<T> = T extends string ? string : number
+
+type Results = StringOrNumber<string | number | boolean>
+
+// Example # 2
+
+interface Dog {
+  type: 'dog',
+  breed: string
+}
+interface Cat {
+  type: 'cat';
+  color: string;
+}
+
+type AnimalType<T> = T extends { type: infer Type } ? Type : never
+
+type AnimalTypes = AnimalType<Dog | Cat>
