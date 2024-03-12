@@ -44,16 +44,16 @@ const processInput = (input: string | number) => {
 //If the reverse property on the config object is true, and input is a string, the function should return the reversed string in uppercase.
 
 const processData = (input: string | number, config: { reverse: boolean } = { reverse: false }): string | Number => {
-  if(typeof input ==='number'){
+  if (typeof input === 'number') {
     return input * input;
-  }else{
+  } else {
     return config.reverse
-    ? input.toUpperCase().split('').reverse().join('')
-    : input.toUpperCase();
+      ? input.toUpperCase().split('').reverse().join('')
+      : input.toUpperCase();
   }
 
 }
-console.log(processData(10)); 
+console.log(processData(10));
 // console.log(processData('Amir Ali Anwar')); 
 
 
@@ -77,6 +77,55 @@ const toCheckIsString = (value: string) => {
 }
 
 console.log(toCheckIsString('amir ali anwar'));
-console.log(toCheckIsString(123));
+// console.log(toCheckIsString(123));
 
- // Output: 'Entered Value is String'
+// Output: 'Entered Value is String'
+
+
+//
+
+interface Car {
+  type: 'car',
+  make: string,
+  model: string,
+  maxSpeed: number
+}
+interface Bike {
+  type: 'bike',
+  brand: String,
+  model: string,
+  maxSpeed: number
+}
+
+
+type Vehicle = Car | Bike
+
+const isCar = (vehicle: Vehicle): vehicle is Car => {
+  return (vehicle as Car).type === 'car'
+}
+
+const calculateMaxSpeed = (vehicle: Vehicle): number => {
+  if (isCar(vehicle)) {
+    return vehicle.maxSpeed;
+  } else {
+    return vehicle.maxSpeed * 0.8
+  }
+}
+const myCar:Car= {type: 'car', make: 'Toyota', model: 'Camry', maxSpeed: 200}
+const myBike: Bike = { type: 'bike', brand: 'Honda', model: 'CBR', maxSpeed: 180 };
+
+console.log(calculateMaxSpeed(myCar)); // Output: 200
+console.log(calculateMaxSpeed(myBike)); // Output: 144 (180 * 0.8)
+
+
+// Mapped Types in typescript
+
+// Mapped types in TypeScript allow you to create new types by transforming properties of an existing type.
+
+//readonly 
+
+interface Person{
+  name: string;
+  age: number;
+}
+type ReadonlyOnlyPerson= Readonly<Person>
