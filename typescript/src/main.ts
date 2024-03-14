@@ -117,7 +117,32 @@ const myBike: Bike = { type: 'bike', brand: 'Honda', model: 'CBR', maxSpeed: 180
 console.log(calculateMaxSpeed(myCar)); // Output: 200
 console.log(calculateMaxSpeed(myBike)); // Output: 144 (180 * 0.8)
 
+// Type Predicate example #2 
 
+interface Cat {
+  name: string;
+  meow: () => void;
+}
+interface Dog {
+  name: string;
+  bark: () => void;
+}
+const isCat = (animal: Cat | Dog): animal is Cat => {
+  return "meow" in animal;
+}
+const greet=(animal: Cat | Dog)=>{
+  if(isCat(animal)){
+    console.log(`Hello, ${animal.name}!`);
+    animal.meow();
+  }else{
+    console.log(`Hi, ${animal.name}!`);
+    animal.bark();
+  }
+}
+const fluffy = { name: 'Fluffy', meow: () => console.log('Meow!') } as Cat;
+const buddy = { name: 'Buddy', bark: () => console.log('Woof!') } as Dog;
+greet(fluffy); // Output: Hello, Fluffy! Meow!
+greet(buddy);
 // Mapped Types in typescript
 
 // Mapped types in TypeScript allow you to create new types by transforming properties of an existing type.
