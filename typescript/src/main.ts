@@ -111,21 +111,116 @@ const calculateMaxSpeed = (vehicle: Vehicle): number => {
     return vehicle.maxSpeed * 0.8
   }
 }
-const myCar:Car= {type: 'car', make: 'Toyota', model: 'Camry', maxSpeed: 200}
+const myCar: Car = { type: 'car', make: 'Toyota', model: 'Camry', maxSpeed: 200 }
 const myBike: Bike = { type: 'bike', brand: 'Honda', model: 'CBR', maxSpeed: 180 };
 
 console.log(calculateMaxSpeed(myCar)); // Output: 200
 console.log(calculateMaxSpeed(myBike)); // Output: 144 (180 * 0.8)
 
+// Type Predicate example #2 
 
+interface Cat {
+  name: string;
+  meow: () => void;
+}
+interface Dog {
+  name: string;
+  bark: () => void;
+}
+const isCat = (animal: Cat | Dog): animal is Cat => {
+  return "meow" in animal;
+}
+const greet=(animal: Cat | Dog)=>{
+  if(isCat(animal)){
+    console.log(`Hello, ${animal.name}!`);
+    animal.meow();
+  }else{
+    console.log(`Hi, ${animal.name}!`);
+    animal.bark();
+  }
+}
+const fluffy = { name: 'Fluffy', meow: () => console.log('Meow!') } as Cat;
+const buddy = { name: 'Buddy', bark: () => console.log('Woof!') } as Dog;
+greet(fluffy); // Output: Hello, Fluffy! Meow!
+greet(buddy);
 // Mapped Types in typescript
 
 // Mapped types in TypeScript allow you to create new types by transforming properties of an existing type.
 
 //readonly 
 
-interface Person{
+interface Person {
   name: string;
   age: number;
 }
-type ReadonlyOnlyPerson= Readonly<Person>
+type ReadonlyOnlyPerson = Readonly<Person>
+
+//Conditional types
+
+//Conditional types in TypeScript allow you to create types that depend on other types.
+//They are particularly useful when you want to conditionally select one of two types based on a type constraint. 
+//Conditional types use the extends keyword to define constraints and employ the ternary conditional operator (? :) to select types based on these constraints.
+
+type NonNullAble<T> = T extends null | undefined ? never : T
+
+// Mapping Union Types:
+
+// Example #1
+type StringOrNumber<T> = T extends string ? string : number
+
+type Results = StringOrNumber<string | number | boolean>
+
+// Example # 2
+
+interface Dog {
+  type: 'dog',
+  breed: string
+}
+interface Cat {
+  type: 'cat';
+  color: string;
+}
+
+type AnimalType<T> = T extends { type: infer Type } ? Type : never
+
+type AnimalTypes = AnimalType<Dog | Cat>
+
+
+// Discriminated unions
+// Discriminated unions, also known as tagged unions or algebraic data types, are a powerful feature in TypeScript that allows you to work with values that could take one of several distinct forms.
+// They are particularly useful when dealing with complex data structures or modeling different states or types.
+
+interface Square {
+  kind: "square";  // Discriminant property
+  size: number;
+}
+
+interface Rectangle {
+  kind: "rectangle";  // Discriminant property
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: "circle";  // Discriminant property
+  radius: number;
+}
+type Shapes= Square | Rectangle | Circle
+
+const calculateArea = (shape: Shapes): number => {
+  switch (shape.kind) {
+    case "square":
+      return shape.size * shape.size;
+    case "rectangle":
+      return shape.width * shape.height;
+
+    case "circle":
+      return Math.PI * shape.radius ** 2
+  }
+}
+const square: Square = { kind: "square", size: 5 };
+const rectangle: Rectangle = { kind: "rectangle", width: 4, height: 6 };
+const circle: Circle = { kind: "circle", radius: 3 };
+
+console.log(calculateArea(square));    // Output: 25
+console.log(calculateArea(rectangle)); // Output: 24
+console.log(calculateArea(circle));   
