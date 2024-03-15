@@ -184,3 +184,43 @@ interface Cat {
 type AnimalType<T> = T extends { type: infer Type } ? Type : never
 
 type AnimalTypes = AnimalType<Dog | Cat>
+
+
+// Discriminated unions
+// Discriminated unions, also known as tagged unions or algebraic data types, are a powerful feature in TypeScript that allows you to work with values that could take one of several distinct forms.
+// They are particularly useful when dealing with complex data structures or modeling different states or types.
+
+interface Square {
+  kind: "square";  // Discriminant property
+  size: number;
+}
+
+interface Rectangle {
+  kind: "rectangle";  // Discriminant property
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: "circle";  // Discriminant property
+  radius: number;
+}
+type Shapes= Square | Rectangle | Circle
+
+const calculateArea = (shape: Shapes): number => {
+  switch (shape.kind) {
+    case "square":
+      return shape.size * shape.size;
+    case "rectangle":
+      return shape.width * shape.height;
+
+    case "circle":
+      return Math.PI * shape.radius ** 2
+  }
+}
+const square: Square = { kind: "square", size: 5 };
+const rectangle: Rectangle = { kind: "rectangle", width: 4, height: 6 };
+const circle: Circle = { kind: "circle", radius: 3 };
+
+console.log(calculateArea(square));    // Output: 25
+console.log(calculateArea(rectangle)); // Output: 24
+console.log(calculateArea(circle));   
