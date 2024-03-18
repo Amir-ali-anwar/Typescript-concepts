@@ -267,4 +267,4 @@ const personAge=40;
 type animal = {
   [personAge]: number
 }
-let tiger:animal {[personAge]:5} 
+let tiger:animal= {[personAge]:5}; 
