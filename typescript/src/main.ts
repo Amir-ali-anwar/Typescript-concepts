@@ -290,3 +290,26 @@ function serverResponse():ServerResponse{
 }
 const response:ServerResponse= serverResponse()
 console.log(response);
+
+// Type Assertion
+let someValue: any = 'This is a string';
+let stringLength= (someValue as string).length
+console.log(stringLength);
+type Bird={
+  name: string;
+}
+type DogType={
+  breed: string;
+}
+
+// Assume we have a JSON string from an API or local file
+let birdString = '{"name": "Eagle"}';
+let dogString = '{"breed": "Poodle"}';
+
+let birdObject= JSON.parse(birdString)
+let dogObject = JSON.parse(dogString)
+
+let bird= birdObject as Bird
+let dog = dogObject as DogType;
+console.log(bird.name);
+console.log(dog.breed);
