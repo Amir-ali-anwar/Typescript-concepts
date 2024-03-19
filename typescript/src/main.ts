@@ -386,3 +386,9 @@ unknownValue = 42.3344556; // OK
 if(typeof unknownValue ==='number'){
   console.log('Type of unknownValue is number',unknownValue.toFixed(2)); 
 }
+
+//Type assertion from unknown to a specific type:
+
+let userInput:unknown='hello'
+let inputLength:number= (userInput as string).length
+console.log(inputLength);
