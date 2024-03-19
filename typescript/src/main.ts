@@ -290,3 +290,99 @@ function serverResponse():ServerResponse{
 }
 const response:ServerResponse= serverResponse()
 console.log(response);
+
+// Type Assertion 
+
+//Using the as keyword:
+let someValue: any = 'This is a string';
+let stringLength= (someValue as string).length
+console.log(stringLength);
+type Bird={
+  name: string;
+}
+type DogType={
+  breed: string;
+}
+
+// Assume we have a JSON string from an API or local file
+let birdString = '{"name": "Eagle"}';
+let dogString = '{"breed": "Poodle"}';
+
+let birdObject= JSON.parse(birdString)
+let dogObject = JSON.parse(dogString)
+
+let bird= birdObject as Bird
+let dog = dogObject as DogType;
+console.log(bird.name);
+console.log(dog.breed);
+
+// Angle-bracket syntax:
+
+let someDataValue:any= 'this the string'
+let strlength:number= (<string>someDataValue).length
+console.log(stringLength);
+
+// Type assertion with interfaces:
+
+interface Foo {
+  bar: number,
+  baz: string
+}
+
+let foo:Foo= {
+  bar:123,
+  baz:'yahoo.com'
+}
+
+let foodAsserted = foo as Foo
+console.log(foodAsserted.bar); // Output: 123
+console.log(foodAsserted.baz);
+
+// Type assertion with function return types:
+
+function parseString(str: string | undefined): string {
+    // We assert str is not undefined
+    return str as string;
+}
+
+let parsedString = parseString("hello");
+console.log(parsedString.toUpperCase()); // Output: "HELLO"
+
+// Type assertion with type unions and type guards:
+ interface Fish{
+  swim():void
+ } 
+interface Birds {
+  fly(): void
+}
+
+function CalculateMove(animal: Fish | Birds){
+  if('swim' in animal){
+    animal.swim()
+  }else{
+    (animal as Birds).fly()
+  }
+}
+
+const fish:Fish={
+  swim(){
+    console.log('Swimming');
+    
+  }
+}
+CalculateMove(fish)
+
+
+// Type - 'unknown'
+
+//The unknown type in TypeScript is a type-safe counterpart of the any type. 
+//It's like saying that a variable could be anything, but we need to perform some type-checking before we can use it.4
+
+let unknownValue: unknown;
+unknownValue = 'Hello World'; // OK
+unknownValue = [1, 2, 3]; // OK
+unknownValue = 42.3344556; // OK
+
+if(typeof unknownValue ==='number'){
+  console.log('Type of unknownValue is number',unknownValue.toFixed(2)); 
+}
