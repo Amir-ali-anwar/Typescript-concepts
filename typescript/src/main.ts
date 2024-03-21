@@ -392,3 +392,28 @@ if(typeof unknownValue ==='number'){
 let userInput:unknown='hello'
 let inputLength:number= (userInput as string).length
 console.log(inputLength);
+
+// Using type guards with unknown:
+function isStringValue(value: unknown): value is string {
+  return typeof value === 'string'
+}
+function processIsStringValue(value: unknown){
+  if (isStringValue(value)) {
+    console.log(value.toUpperCase());
+
+  } else {
+    console.log("Value is not a string.");
+  }
+}
+processIsStringValue("hello"); // Output: HELLO
+processIsStringValue(123); // Output: Value is not a string.
+
+
+// classes
+
+class Book {
+  constructor(title, author) {
+    this.title = title,
+      this.author = author
+  }
+}
