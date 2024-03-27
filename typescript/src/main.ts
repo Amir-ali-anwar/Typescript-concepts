@@ -411,9 +411,13 @@ processIsStringValue(123); // Output: Value is not a string.
 
 // classes
 
-class Book {
-  constructor(title, author) {
+class Books {
+  title:string;
+  author:string;
+  constructor(title:string, author:string) {
     this.title = title,
       this.author = author
   }
 }
+const newBooks= new Books('deep work','Cal Newport')
+console.log(newBooks);
