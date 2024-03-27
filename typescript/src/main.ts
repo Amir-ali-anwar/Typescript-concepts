@@ -405,19 +405,31 @@ function processIsStringValue(value: unknown){
     console.log("Value is not a string.");
   }
 }
-processIsStringValue("hello"); // Output: HELLO
-processIsStringValue(123); // Output: Value is not a string.
+// processIsStringValue("hello"); // Output: HELLO
+// processIsStringValue(123); // Output: Value is not a string.
 
 
 // classes
 
 class Books {
-  title:string;
-  author:string;
-  constructor(title:string, author:string) {
+  public readonly title: string;;
+  public author: string;
+  private checkOut=false;
+  constructor(title: string, author: string) {
     this.title = title,
-      this.author = author
+    this.author = author
+  }
+  public checkout(){
+    this.checkOut= this.toggleCheckOutStatus()
+  }
+  public isCheckOut(){
+    return this.checkOut
+  }
+  public toggleCheckOutStatus(){
+    return !this.checkOut
   }
 }
 const newBooks= new Books('deep work','Cal Newport')
-console.log(newBooks);
+
+newBooks.checkout()
+console.log(newBooks.isCheckOut());
