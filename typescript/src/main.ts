@@ -432,4 +432,20 @@ class Books {
 const newBooks= new Books('deep work','Cal Newport')
 
 newBooks.checkout()
-console.log(newBooks.isCheckOut());
+// console.log(newBooks.isCheckOut());
+
+
+interface Iperson {
+  name: string,
+  age: number,
+  greet(): void;
+}
+class Person implements Iperson {
+  constructor(public name:string, public age:number){}
+  greet(): void {
+    console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old`);
+  }
+}
+const hispter= new Person('Amir Ali Anwar',26)
+
+hispter.greet()
