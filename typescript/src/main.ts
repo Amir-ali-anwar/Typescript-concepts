@@ -433,8 +433,6 @@ const newBooks= new Books('deep work','Cal Newport')
 
 newBooks.checkout()
 // console.log(newBooks.isCheckOut());
-
-
 interface Iperson {
   name: string,
   age: number,
