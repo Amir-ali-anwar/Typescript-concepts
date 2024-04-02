@@ -447,3 +447,17 @@ class Person implements Iperson {
 const hispter= new Person('Amir Ali Anwar',26)
 
 hispter.greet()
+
+// Using type guards with unknown:
+
+function isStringvalue(value:unknown): value is string{
+  return typeof value==='string'
+}
+function processValue(value:unknown){
+  if(isStringvalue(value)){
+    console.log(value.toUpperCase());
+  }else{
+    console.log("Value is not a string.");
+  }
+}
+console.log(processValue('arewr'));
