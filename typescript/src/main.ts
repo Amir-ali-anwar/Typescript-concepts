@@ -163,6 +163,11 @@ type ReadonlyOnlyPerson = Readonly<Person>
 
 type NonNullAble<T> = T extends null | undefined ? never : T
 
+
+
+
+
+
 // Mapping Union Types:
 
 // Example #1
@@ -386,3 +391,102 @@ unknownValue = 42.3344556; // OK
 if(typeof unknownValue ==='number'){
   console.log('Type of unknownValue is number',unknownValue.toFixed(2)); 
 }
+
+//Type assertion from unknown to a specific type:
+
+let userInput:unknown='hello'
+let inputLength:number= (userInput as string).length
+console.log(inputLength);
+
+// Using type guards with unknown:
+function isStringValue(value: unknown): value is string {
+  return typeof value === 'string'
+}
+function processIsStringValue(value: unknown){
+  if (isStringValue(value)) {
+    console.log(value.toUpperCase());
+
+  } else {
+    console.log("Value is not a string.");
+  }
+}
+// processIsStringValue("hello"); // Output: HELLO
+// processIsStringValue(123); // Output: Value is not a string.
+
+
+// classes
+
+class Books {
+  public readonly title: string;;
+  public author: string;
+  private checkOut=false;
+  constructor(title: string, author: string) {
+    this.title = title,
+    this.author = author
+  }
+  public checkout(){
+    this.checkOut= this.toggleCheckOutStatus()
+  }
+  public isCheckOut(){
+    return this.checkOut
+  }
+  public toggleCheckOutStatus(){
+    return !this.checkOut
+  }
+}
+const newBooks= new Books('deep work','Cal Newport')
+
+newBooks.checkout()
+// console.log(newBooks.isCheckOut());
+interface Iperson {
+  name: string,
+  age: number,
+  greet(): void;
+}
+class Person implements Iperson {
+  constructor(public name:string, public age:number){}
+  greet(): void {
+    console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old`);
+  }
+}
+const hispter= new Person('Amir Ali Anwar',26)
+
+hispter.greet()
+
+// Using type guards with unknown:
+
+function isStringvalue(value:unknown): value is string{
+  return typeof value==='string'
+}
+function processValue(value:unknown){
+  if(isStringvalue(value)){
+    console.log(value.toUpperCase());
+  }else{
+    console.log("Value is not a string.");
+  }
+}
+console.log(processValue('arewr'));
+
+
+// 1. Generic Functions
+
+function Identity<T>(arg: T): T {
+  return arg;
+}
+let output1 = Identity<string>("Hello, TypeScript!"); // Output type is string
+console.log(output1);
+
+
+// Merging Objects with Generics
+
+//A function that merges two objects into one, with type safety.
+
+function mergeObject<T, U>(obj1: T, obj2: U): T & U {
+  return {...obj1,...obj2}
+}
+
+const person = { name: "Alice" };
+const details = { age: 25, city: "Wonderland" };
+
+const mergeObjects= mergeObject(person,details)
+console.log(mergeObjects);
