@@ -163,6 +163,11 @@ type ReadonlyOnlyPerson = Readonly<Person>
 
 type NonNullAble<T> = T extends null | undefined ? never : T
 
+
+
+
+
+
 // Mapping Union Types:
 
 // Example #1
@@ -461,3 +466,27 @@ function processValue(value:unknown){
   }
 }
 console.log(processValue('arewr'));
+
+
+// 1. Generic Functions
+
+function Identity<T>(arg: T): T {
+  return arg;
+}
+let output1 = Identity<string>("Hello, TypeScript!"); // Output type is string
+console.log(output1);
+
+
+// Merging Objects with Generics
+
+//A function that merges two objects into one, with type safety.
+
+function mergeObject<T, U>(obj1: T, obj2: U): T & U {
+  return {...obj1,...obj2}
+}
+
+const person = { name: "Alice" };
+const details = { age: 25, city: "Wonderland" };
+
+const mergeObjects= mergeObject(person,details)
+console.log(mergeObjects);
