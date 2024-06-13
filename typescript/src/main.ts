@@ -490,3 +490,37 @@ const details = { age: 25, city: "Wonderland" };
 
 const mergeObjects= mergeObject(person,details)
 console.log(mergeObjects);
+
+
+// Creating a Generic Wrapper for API Responses
+
+interface ApiResponse<T> {
+  data: T | null;
+  error: Error | string | null;
+}
+async function fetchDataAPI<T>(url: string): Promise<ApiResponse<T>> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return { data, error: null };
+  } catch (error) {
+    return { data: null, error: (error as Error).message };
+  }
+}
+
+async function getTodoData() {
+  const result = await fetchDataAPI<any>("https://jsonplaceholder.typicode.com/todos/");
+  if (result.error) {
+    console.error('Error fetching data:', result.error);
+  } else {
+    console.log('Todo Data:', result.data);
+  }
+}
+
+getTodoData();
+
+
+
