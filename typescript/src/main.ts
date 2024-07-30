@@ -525,3 +525,20 @@ async function getTodoData() {
 }
 
 getTodoData();
+
+// Dynamic Generics with Conditional Types
+
+// type ResponseType<T> = T extends string ? { value: string } : { value: number };
+
+// function processResponse<T>(input: T): ResponseType<T> {
+//     if (typeof input === 'string') {
+//         return { value: input } as ResponseType<T>;
+//     } else {
+//         return { value: Number(input) } as ResponseType<T>;
+//     }
+// }
+
+// const stringResponse = processResponse('Hello'); // { value: string }
+// const numberResponse = processResponse(42); // { value: number }
+
+// console.log(stringResponse, numberResponse);
