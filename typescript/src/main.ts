@@ -542,3 +542,17 @@ getTodoData();
 // const numberResponse = processResponse(42); // { value: number }
 
 // console.log(stringResponse, numberResponse);
+
+
+//Using Union Types with Generics
+
+function handleInput<T extends string | number>(input: T): string {
+  if (typeof input === 'string') {
+      return `String input: ${input}`;
+  } else {
+      return `Number input: ${input}`;
+  }
+}
+
+console.log(handleInput('Hello')); // "String input: Hello"
+console.log(handleInput(42)); // "Number input: 42"
