@@ -556,3 +556,13 @@ function handleInput<T extends string | number>(input: T): string {
 
 console.log(handleInput('Hello')); // "String input: Hello"
 console.log(handleInput(42)); // "Number input: 42"
+
+// Generic Functions with Multiple Types
+
+function Combine<T, U>(first: T, second: U): [T, U] {
+  return [first,second]
+}
+
+let combined= Combine('Hy this the combine function',123)
+console.log({combined});
+
